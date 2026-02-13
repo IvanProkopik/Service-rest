@@ -1,6 +1,5 @@
-package org.example.Dao;
+package org.example.dao;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface BookDao<K,T> extends Dao<K,T>{

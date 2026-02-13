@@ -1,10 +1,4 @@
-package org.example.Dao.impl;
-
-import org.example.Dao.Dao;
-import org.example.entity.Book;
-
-import java.util.List;
-import java.util.Optional;
+package org.example.dao.impl;
 
 public class BookDao {
 
