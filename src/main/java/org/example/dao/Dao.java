@@ -11,7 +11,7 @@ public interface Dao<K,T> {
 
     boolean delete(K id);
 
-    void update(K id);
+    void update(T entity);
 
     T save(T entity);
 
