@@ -121,7 +121,7 @@ private static final String DELETE_SQL = """
     @Override
     public boolean delete(Long id) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
 
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;

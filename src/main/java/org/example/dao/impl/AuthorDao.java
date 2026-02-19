@@ -2,7 +2,6 @@ package org.example.dao.impl;
 
 import org.example.dao.Dao;
 import org.example.entity.Author;
-import org.example.entity.Book;
 import org.example.util.ConnectionManager;
 
 import java.math.BigDecimal;
@@ -98,7 +97,7 @@ public class AuthorDao implements Dao<Long, Author> {
     @Override
     public boolean delete(Long id) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
 
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
