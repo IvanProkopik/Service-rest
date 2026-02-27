@@ -2,7 +2,7 @@ package org.example.entity;
 
 import lombok.*;
 
-
+@Builder
 @Getter
 @Setter
 @EqualsAndHashCode

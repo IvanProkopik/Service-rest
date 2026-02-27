@@ -39,7 +39,7 @@ public class AuthorDao implements Dao<Long, Author> {
                                         SET first_name = ?,
                                             last_name = ?,
                                             phone = ?,
-                                            gmail = ?,
+                                            gmail = ?
                                         WHERE id = ?
             """;
 
@@ -71,7 +71,7 @@ public class AuthorDao implements Dao<Long, Author> {
             return authorList;
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
 
@@ -90,7 +90,7 @@ public class AuthorDao implements Dao<Long, Author> {
             return Optional.ofNullable(author);
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
 
@@ -103,7 +103,7 @@ public class AuthorDao implements Dao<Long, Author> {
             return preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
 
@@ -116,9 +116,12 @@ public class AuthorDao implements Dao<Long, Author> {
             preparedStatement.setString(2, entity.getLastName());
             preparedStatement.setBigDecimal(3, entity.getPhone());
             preparedStatement.setString(4, entity.getGmail());
+            preparedStatement.setLong(5, entity.getId());
+
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
 
@@ -143,7 +146,7 @@ public class AuthorDao implements Dao<Long, Author> {
             return entity;
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
 
