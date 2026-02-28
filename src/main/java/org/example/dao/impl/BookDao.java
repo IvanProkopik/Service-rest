@@ -42,7 +42,7 @@ private static final String DELETE_SQL = """
     private static final String UPDATE_SQL = """
               UPDATE books
                                     SET book_title = ?,
-                                        years_of_publication = ?,
+                                        year_of_publication = ?,
                                         genre = ?,
                                         author_id = ?
                                     WHERE id = ?
@@ -141,6 +141,8 @@ private static final String DELETE_SQL = """
             preparedStatement.setString(3, entity.getGenre());
             preparedStatement.setLong(4, entity.getAuthorId());
             preparedStatement.setLong(5, entity.getId());
+
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e){
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
