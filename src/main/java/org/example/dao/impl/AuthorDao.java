@@ -67,17 +67,17 @@ public class AuthorDao implements Dao<Long, Author> {
     @Override
     public List<Author> findAll() {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Author> authorList = new ArrayList<>();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 authorList.add(buildAuthor(resultSet));
             }
             return authorList;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
@@ -85,18 +85,18 @@ public class AuthorDao implements Dao<Long, Author> {
     @Override
     public Optional<Author> findById(Long id) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             Author author = null;
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 author = buildAuthor(resultSet);
             }
             return Optional.ofNullable(author);
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
@@ -104,12 +104,12 @@ public class AuthorDao implements Dao<Long, Author> {
     @Override
     public boolean delete(Long id) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
 
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
@@ -117,7 +117,7 @@ public class AuthorDao implements Dao<Long, Author> {
     @Override
     public void update(Author entity) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
 
             preparedStatement.setString(1, entity.getFirstName());
             preparedStatement.setString(2, entity.getLastName());
@@ -127,7 +127,7 @@ public class AuthorDao implements Dao<Long, Author> {
 
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
@@ -135,7 +135,7 @@ public class AuthorDao implements Dao<Long, Author> {
     @Override
     public void patch(Author entity) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(PATCH_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(PATCH_SQL)) {
 
             preparedStatement.setString(1, entity.getLastName());
             preparedStatement.setString(2, entity.getGmail());
@@ -143,7 +143,7 @@ public class AuthorDao implements Dao<Long, Author> {
 
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }
@@ -168,7 +168,7 @@ public class AuthorDao implements Dao<Long, Author> {
 
             return entity;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх авторів", e);
         }
     }

@@ -9,7 +9,7 @@ import lombok.Value;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class BookDto{
-       Long id;
-       String description;
+public class BookDto {
+    Long id;
+    String description;
 }

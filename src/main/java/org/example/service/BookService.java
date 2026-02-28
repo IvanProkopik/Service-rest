@@ -11,37 +11,37 @@ public class BookService {
     private static final BookService INSTANCE = new BookService();
     private static final BookDao bookDao = BookDao.getInstance();
 
-    private BookService(){
+    private BookService() {
 
     }
 
-    public static BookService getInstance(){
+    public static BookService getInstance() {
         return INSTANCE;
     }
 
-    public List<BookDto> findAll(){
+    public List<BookDto> findAll() {
         return bookDao.findAll().stream()
                 .map(this::buildBookDto)
                 .toList();
     }
 
-    public Optional<Book> findById(Long id){
+    public Optional<Book> findById(Long id) {
         return bookDao.findById(id);
     }
 
-    public boolean delete(Long id){
+    public boolean delete(Long id) {
         return bookDao.delete(id);
     }
 
-    public Book save(Book book){
+    public Book save(Book book) {
         return bookDao.save(book);
     }
 
-    public void update(Book book){
+    public void update(Book book) {
         bookDao.update(book);
     }
 
-    public Optional<Book> findByName(String name){
+    public Optional<Book> findByName(String name) {
         return bookDao.findName(name);
     }
 

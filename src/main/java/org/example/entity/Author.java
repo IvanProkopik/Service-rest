@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 @ToString
 @AllArgsConstructor
 public class Author {
-     Long id;
-     String firstName;
-     String lastName;
-     BigDecimal phone;
-     String gmail;
+    Long id;
+    String firstName;
+    String lastName;
+    BigDecimal phone;
+    String gmail;
 }

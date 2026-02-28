@@ -9,9 +9,9 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class Book {
-     Long id;
-     String bookTitle;
-     Integer yearOfPublication;
-     String genre;
-     Long authorId;
+    Long id;
+    String bookTitle;
+    Integer yearOfPublication;
+    String genre;
+    Long authorId;
 }

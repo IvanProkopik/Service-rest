@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class AuthorDto{
-        Long id;
-        String firstName;
-        String lastName;
-        BigDecimal phone;
-        String gmail;
+public class AuthorDto {
+    Long id;
+    String firstName;
+    String lastName;
+    BigDecimal phone;
+    String gmail;
 
 }

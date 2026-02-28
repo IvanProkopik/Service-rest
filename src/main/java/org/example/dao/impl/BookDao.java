@@ -22,31 +22,31 @@ public class BookDao implements IBookDao<Long, Book> {
                         ORDER BY year_of_publication
             """;
 
-private static final String FIND_BY_ID = """
-         SELECT *
-                    FROM books
-                    WHERE id = ?
-        """;
+    private static final String FIND_BY_ID = """
+             SELECT *
+                        FROM books
+                        WHERE id = ?
+            """;
 
-private static final String FIND_NAME = """
-         SELECT *
-                    FROM books
-                    WHERE book_title = ?
-        """;
+    private static final String FIND_NAME = """
+             SELECT *
+                        FROM books
+                        WHERE book_title = ?
+            """;
 
-private static final String DELETE_SQL = """
-        DELETE FROM books
-                    WHERE id = ?
-        """;
+    private static final String DELETE_SQL = """
+            DELETE FROM books
+                        WHERE id = ?
+            """;
 
     private static final String UPDATE_SQL = """
-              UPDATE books
-                                    SET book_title = ?,
-                                        year_of_publication = ?,
-                                        genre = ?,
-                                        author_id = ?
-                                    WHERE id = ?
-        """;
+                  UPDATE books
+                                        SET book_title = ?,
+                                            year_of_publication = ?,
+                                            genre = ?,
+                                            author_id = ?
+                                        WHERE id = ?
+            """;
 
     private static final String SAVE_SQL = """
              INSERT INTO books ( book_title, year_of_publication, genre, author_id)
@@ -65,18 +65,18 @@ private static final String DELETE_SQL = """
     @Override
     public Optional<Book> findName(String name) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_NAME)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_NAME)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             Book book = null;
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 book = buildBook(resultSet);
             }
             return Optional.ofNullable(book);
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
@@ -84,17 +84,17 @@ private static final String DELETE_SQL = """
     @Override
     public List<Book> findAll() {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Book> bookList = new ArrayList<>();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 bookList.add(buildBook(resultSet));
             }
             return bookList;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
@@ -102,18 +102,18 @@ private static final String DELETE_SQL = """
     @Override
     public Optional<Book> findById(Long id) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             Book book = null;
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 book = buildBook(resultSet);
             }
             return Optional.ofNullable(book);
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
@@ -121,12 +121,12 @@ private static final String DELETE_SQL = """
     @Override
     public boolean delete(Long id) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
 
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
@@ -134,7 +134,7 @@ private static final String DELETE_SQL = """
     @Override
     public void update(Book entity) {
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
 
             preparedStatement.setString(1, entity.getBookTitle());
             preparedStatement.setInt(2, entity.getYearOfPublication());
@@ -144,7 +144,7 @@ private static final String DELETE_SQL = """
 
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
@@ -174,7 +174,7 @@ private static final String DELETE_SQL = """
 
             return entity;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
@@ -186,6 +186,6 @@ private static final String DELETE_SQL = """
                 resultSet.getObject("year_of_publication", Integer.class),
                 resultSet.getObject("genre", String.class),
                 resultSet.getObject("author_id", Long.class)
-    );
+        );
     }
 }

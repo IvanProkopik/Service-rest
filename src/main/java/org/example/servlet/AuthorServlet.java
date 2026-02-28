@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @WebServlet("/author/*")
 public class AuthorServlet extends HttpServlet {
@@ -46,7 +45,6 @@ public class AuthorServlet extends HttpServlet {
             List<AuthorDto> authors = authorService.findAll();
             objectMapper.writeValue(resp.getOutputStream(), authors);
         }
-
 
 
     }
@@ -194,7 +192,6 @@ public class AuthorServlet extends HttpServlet {
                 resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
             }
         }
-
 
 
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);

@@ -6,14 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.dto.AuthorDto;
 import org.example.dto.BookDto;
-import org.example.entity.Author;
 import org.example.entity.Book;
 import org.example.service.BookService;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +77,7 @@ public class BookServlet extends HttpServlet {
                     resp.getWriter().write("{\"error:\":\"Something went wrong! Maybe missing book id\"}");
                 }
             }
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
         }
@@ -97,7 +94,7 @@ public class BookServlet extends HttpServlet {
         String genre = req.getParameter("genre");
         String authorId = req.getParameter("authorId");
 
-        if (id != null && !id.isEmpty()){
+        if (id != null && !id.isEmpty()) {
             try {
                 Long idParam = Long.parseLong(id);
                 Integer yearOfPublicationParam = Integer.parseInt(yearOfPublication);
@@ -115,7 +112,7 @@ public class BookServlet extends HttpServlet {
                 objectMapper.writeValue(resp.getWriter(), book);
 
 
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
             }
@@ -132,7 +129,7 @@ public class BookServlet extends HttpServlet {
         String genre = req.getParameter("genre");
 
 
-        if (id != null && !id.isEmpty()){
+        if (id != null && !id.isEmpty()) {
             try {
                 Long idParam = Long.parseLong(id);
 
@@ -152,7 +149,7 @@ public class BookServlet extends HttpServlet {
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
             }

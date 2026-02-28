@@ -10,30 +10,30 @@ public class ConnectionManager {
     private static final String PASSWORD_KEY = "db.password";
     private static final String DRIVER_KEY = "db.driver";
 
-    static  {
+    static {
         loadDriver();
     }
 
-    private ConnectionManager(){
+    private ConnectionManager() {
 
     }
 
-    public static Connection get(){
+    public static Connection get() {
         try {
             return DriverManager.getConnection(
-                PropertiesUtil.get(URL_KEY),
-                PropertiesUtil.get(USERNAME_KEY),
-                PropertiesUtil.get(PASSWORD_KEY)
+                    PropertiesUtil.get(URL_KEY),
+                    PropertiesUtil.get(USERNAME_KEY),
+                    PropertiesUtil.get(PASSWORD_KEY)
             );
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void loadDriver(){
+    private static void loadDriver() {
         try {
             Class.forName(PropertiesUtil.get(DRIVER_KEY));
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
