@@ -1,6 +1,15 @@
 package org.example.dto;
 
-public record BookDto(
-       Long id,
-       String description) {
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Value;
+
+@Value
+@Getter
+@Setter
+@EqualsAndHashCode
+public class BookDto{
+       Long id;
+       String description;
 }
