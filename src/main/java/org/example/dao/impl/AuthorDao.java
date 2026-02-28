@@ -43,6 +43,13 @@ public class AuthorDao implements Dao<Long, Author> {
                                         WHERE id = ?
             """;
 
+    private static final String PATCH_SQL = """
+                  UPDATE authors
+                                        SET last_name = ?,
+                                            gmail = ?
+                                        WHERE id = ?
+            """;
+
     private static final String SAVE_SQL = """
              INSERT INTO authors ( first_name, last_name, phone, gmail)
              VALUES (?, ?, ?, ?)
@@ -117,6 +124,22 @@ public class AuthorDao implements Dao<Long, Author> {
             preparedStatement.setBigDecimal(3, entity.getPhone());
             preparedStatement.setString(4, entity.getGmail());
             preparedStatement.setLong(5, entity.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Помилка при отриманні всіх авторів", e);
+        }
+    }
+
+    @Override
+    public void patch(Author entity) {
+        try (Connection connection = ConnectionManager.get();
+             PreparedStatement preparedStatement = connection.prepareStatement(PATCH_SQL)){
+
+            preparedStatement.setString(1, entity.getLastName());
+            preparedStatement.setString(2, entity.getGmail());
+            preparedStatement.setLong(3, entity.getId());
 
             preparedStatement.executeUpdate();
 

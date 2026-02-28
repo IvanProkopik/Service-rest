@@ -29,12 +29,26 @@ public class BookServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
         String bookIdParam = req.getParameter("bookId");
+        String firstNameParam = req.getParameter("firstName");
 
         if (bookIdParam != null) {
             try {
                 Optional<Book> book = bookService.findById(Long.parseLong(bookIdParam));
                 if (book.isPresent()) {
-                    objectMapper.writeValue(resp.getOutputStream(), book);
+                    objectMapper.writeValue(resp.getOutputStream(), book.get());
+                } else {
+                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    resp.getWriter().print("Book not found!");
+                }
+            } catch (NumberFormatException e) {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
+            }
+        } else if (firstNameParam != null) {
+            try {
+                Optional<Book> book = bookService.findByName(firstNameParam);
+                if (book.isPresent()) {
+                    objectMapper.writeValue(resp.getOutputStream(), book.get());
                 } else {
                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     resp.getWriter().print("Book not found!");

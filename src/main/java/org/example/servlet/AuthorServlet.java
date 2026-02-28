@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @WebServlet("/author/*")
 public class AuthorServlet extends HttpServlet {
@@ -26,6 +27,7 @@ public class AuthorServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
         String authorIdParam = req.getParameter("authorId");
+
 
         if (authorIdParam != null) {
             try {
@@ -44,6 +46,9 @@ public class AuthorServlet extends HttpServlet {
             List<AuthorDto> authors = authorService.findAll();
             objectMapper.writeValue(resp.getOutputStream(), authors);
         }
+
+
+
     }
 
     @Override
@@ -142,4 +147,57 @@ public class AuthorServlet extends HttpServlet {
             }
         }
     }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        if ("PATCH".equalsIgnoreCase(req.getMethod())) {
+            doPatch(req, resp);
+            return;
+        }
+
+        super.service(req, resp);
+    }
+
+    protected void doPatch(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
+        String id = req.getParameter("id");
+        String gmail = req.getParameter("gmail");
+        String lastName = req.getParameter("lastName");
+
+        if (id != null && !id.isEmpty()) {
+            try {
+                Long idParam = Long.parseLong(id);
+
+                Optional<Author> existAuthor = authorService.findById(idParam);
+                if (existAuthor.isPresent()) {
+                    Author newAuthor = Author.builder()
+                            .id(existAuthor.get().getId())
+                            .firstName(existAuthor.get().getFirstName())
+                            .lastName(lastName)
+                            .phone(existAuthor.get().getPhone())
+                            .gmail(gmail)
+                            .build();
+
+                    authorService.patch(newAuthor);
+                } else {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
+                }
+            } catch (NumberFormatException e) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("{\"error:\":\"Something went wrong! Invalid id\"}");
+            }
+        }
+
+
+
+        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    }
+
 }

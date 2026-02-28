@@ -28,8 +28,6 @@ public class AuthorService {
                 .toList();
     }
 
-
-
     public Optional<Author> findById(Long id){
         return authorDao.findById(id);
     }
@@ -46,19 +44,8 @@ public class AuthorService {
         authorDao.update(author);
     }
 
-    public Author updateAuthorPartial(Long id, AuthorDto dto) {
-        Optional<Author> optionalAuthor = authorDao.findById(id);
-        if (optionalAuthor.isEmpty()) return null;
-
-        Author existing = optionalAuthor.get();
-
-        if (dto.firstName() != null) existing.setFirstName(dto.firstName());
-        if (dto.lastName() != null) existing.setLastName(dto.lastName());
-        if (dto.phone() != null) existing.setPhone(dto.phone());
-        if (dto.gmail() != null) existing.setGmail(dto.gmail());
-
-        authorDao.update(existing);
-        return existing;
+    public void patch(Author author){
+        authorDao.patch(author);
     }
 
     private AuthorDto buildAuthorDto(Author author) {

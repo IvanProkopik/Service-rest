@@ -44,12 +44,12 @@ private static final String DELETE_SQL = """
                                     SET book_title = ?,
                                         years_of_publication = ?,
                                         genre = ?,
-                                        author_id = ?,
+                                        author_id = ?
                                     WHERE id = ?
         """;
 
     private static final String SAVE_SQL = """
-             INSERT INTO books ( book_title, years_of_publication, genre, author_id)
+             INSERT INTO books ( book_title, year_of_publication, genre, author_id)
              VALUES (?, ?, ?, ?)
             """;
 
@@ -77,7 +77,7 @@ private static final String DELETE_SQL = """
             return Optional.ofNullable(book);
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
 
@@ -95,7 +95,7 @@ private static final String DELETE_SQL = """
             return bookList;
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
 
@@ -114,7 +114,7 @@ private static final String DELETE_SQL = """
             return Optional.ofNullable(book);
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
 
@@ -127,7 +127,7 @@ private static final String DELETE_SQL = """
             return preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
 
@@ -140,10 +140,16 @@ private static final String DELETE_SQL = """
             preparedStatement.setInt(2, entity.getYearOfPublication());
             preparedStatement.setString(3, entity.getGenre());
             preparedStatement.setLong(4, entity.getAuthorId());
+            preparedStatement.setLong(5, entity.getId());
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
+    }
+
+    @Override
+    public void patch(Book entity) {
+
     }
 
     @Override
@@ -167,7 +173,7 @@ private static final String DELETE_SQL = """
             return entity;
 
         } catch (SQLException e){
-            throw new RuntimeException("Помилка при отриманні всіх рейсів", e);
+            throw new RuntimeException("Помилка при отриманні всіх книг", e);
         }
     }
 
