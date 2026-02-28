@@ -67,7 +67,7 @@ public class BookServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        String bookIdParam = req.getParameter("Id");
+        String bookIdParam = req.getParameter("id");
 
         try {
             if (bookIdParam != null || !bookIdParam.isEmpty()) {
